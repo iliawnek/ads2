@@ -20,47 +20,56 @@ public class ArrayQueue<E> {
         queue = (E[]) new Object[this.capacity];
         front = rear = size = 0;
     }
-    //
-    // NOTE: java does not allow creation of array with parameterised type!
-    //
 
     public int size() {
-        return -999;
+        return size;
     }
-    //
-    // IMPLEMENT ME
-    //
 
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
-    //
-    // IMPLEMENT ME
-    //
 
     public E front() throws ArrayQueueException {
-        return null;
+        return queue[front];
     }
-    //
-    // IMPLEMENT ME
-    //
 
     public void enqueue(E element) throws ArrayQueueException {
+        if (size == capacity) {
+            throw new ArrayQueueException();
+        }
+        else {
+            queue[rear] = element;
+            rear = (rear + 1) % capacity;
+            size++;
+        }
     }
-    //
-    // IMPLEMENT ME
-    //
 
 
     public E dequeue() throws ArrayQueueException {
-        return null;
+        if (size == 0) {
+            throw new ArrayQueueException();
+        }
+        else {
+            E dequeuedElement = queue[front];
+            queue[front] = null;
+            front = (front + 1) % capacity;
+            size--;
+            return dequeuedElement;
+        }
     }
-    //
-    // IMPLEMENT ME
-    //
 
     public String toString() {
-        return "";
+        String s = "[";
+        int cursor = front;
+        for (int i = 0; i < size - 1; i++) {
+            s += queue[cursor].toString();
+            s += ", ";
+            cursor = (cursor + 1) % capacity;
+        }
+        if (size > 0) {
+            s += queue[(rear - 1) == -1 ? capacity - 1 : rear - 1];
+        }
+        return s + "]";
     }
     //
     // IMPLEMENT ME
