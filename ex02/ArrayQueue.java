@@ -63,7 +63,7 @@ public class ArrayQueue<E> {
         int cursor = front;
         for (int i = 0; i < size - 1; i++) {
             s += queue[cursor].toString();
-            s += ", ";
+            s += ",";
             cursor = (cursor + 1) % capacity;
         }
         if (size > 0) {
@@ -71,13 +71,5 @@ public class ArrayQueue<E> {
         }
         return s + "]";
     }
-    //
-    // IMPLEMENT ME
-    //
-    //
-    // NOTE: if the queue contains 1,2,3 then return "[1,2,3]"
-    //       if the queue contains 1 then return "[1]"
-    //       if the queue is empty return "[]"
-    //
 }
 
