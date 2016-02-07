@@ -1,3 +1,8 @@
+/**
+ * Queue implemented using a circular array.
+ * @param <E>
+ */
+
 public class ArrayQueue<E> {
 
     public static final int CAPACITY = 10;  // default queue capacity
@@ -18,21 +23,39 @@ public class ArrayQueue<E> {
         front = rear = size = 0;
     }
 
+    /**
+     * @return size of queue
+     */
     public int size() {
         return size;
     }
 
+    /**
+     * @return true if queue is empty
+     */
     public boolean isEmpty() {
         return size == 0;
     }
 
+    /**
+     * @return element at front of queue
+     * @throws ArrayQueueException when queue is empty
+     */
     public E front() throws ArrayQueueException {
+        if (size == 0) {
+            throw new ArrayQueueException("Queue empty, front element does not exist.");
+        }
         return Q[front];
     }
 
+    /**
+     * Adds an object to the rear of the queue.
+     * @param element is object to be enqueued
+     * @throws ArrayQueueException when queue is full
+     */
     public void enqueue(E element) throws ArrayQueueException {
         if (size == n) {
-            throw new ArrayQueueException();
+            throw new ArrayQueueException("Queue full, cannot enqueue element.");
         }
         else {
             Q[rear] = element;
@@ -41,10 +64,14 @@ public class ArrayQueue<E> {
         }
     }
 
-
+    /**
+     * Removes frontmost element from the queue, and returns it.
+     * @return element at the front of the queue
+     * @throws ArrayQueueException when queue is empty
+     */
     public E dequeue() throws ArrayQueueException {
         if (size == 0) {
-            throw new ArrayQueueException();
+            throw new ArrayQueueException("Queue empty, nothing to dequeue.");
         }
         else {
             E dequeuedElement = Q[front];
@@ -55,6 +82,9 @@ public class ArrayQueue<E> {
         }
     }
 
+    /**
+     * @return string representation of queue
+     */
     public String toString() {
         String s = "[";
         int cursor = front;

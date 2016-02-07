@@ -12,11 +12,21 @@ public class QueueSort<E extends Comparable<E>> {
         this(CAPACITY);
     }
 
+    /**
+     * @param capacity of the internal ArrayQueue
+     */
     public QueueSort(int capacity) {
         n = capacity;
         Q = new ArrayQueue<>(n);
     }
 
+    /**
+     *
+     * @param q1 sorted ArrayQueue, to be merged
+     * @param q2 sorted ArrayQueue, to be merged
+     * @return merged and sorted ArrayQueue
+     * @throws ArrayQueueException
+     */
     private ArrayQueue<E> merge(ArrayQueue<E> q1, ArrayQueue<E> q2) throws ArrayQueueException {
         int size = q1.size() + q2.size();
         ArrayQueue<E> mergedQueue = new ArrayQueue<>(size);
@@ -46,6 +56,9 @@ public class QueueSort<E extends Comparable<E>> {
         return mergedQueue;
     }
 
+    /**
+     * Sorts by merging continually merging array queues until only one remains
+     */
     public void sort() {
         ArrayQueue<E> q1;
         ArrayQueue<E> q2;
@@ -57,12 +70,19 @@ public class QueueSort<E extends Comparable<E>> {
         }
     }
 
+    /**
+     * Adds a new element to the sorting structure
+     * @param element to be added
+     */
     public void add(E element) {
         ArrayQueue<E> arrayQueue = new ArrayQueue<>(1);
         arrayQueue.enqueue(element);
         Q.enqueue(arrayQueue);
     }
 
+    /**
+     * @return string representation of QueueSort
+     */
     public String toString() {
         return Q.toString();
     }
@@ -71,6 +91,10 @@ public class QueueSort<E extends Comparable<E>> {
         trace = !trace;
     }
 
+    /**
+     * @param args only 1 arg expected: filename of .txt file of words
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(new File(args[0]));
         ArrayList<String> data = new ArrayList<>();
