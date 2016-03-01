@@ -3,6 +3,12 @@ import java.io.*;
 
 public class HeapSort {
 
+    /**
+     * Takes in a text file containing a list of words,
+     * and outputs another text file with all words sorted.
+     * @param args first arg should be the file name of the file containing words to be sorted
+     * @throws IOException
+     */
     @SuppressWarnings("unchecked")
     public static void main(String[] args) throws IOException {
         // get file data from command line
@@ -39,7 +45,3 @@ public class HeapSort {
         sc.close();
     }
 }
-//
-// takes a filename from the command line
-// and outputs that file sorted, one word per line
-//
