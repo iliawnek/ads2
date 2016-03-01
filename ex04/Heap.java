@@ -53,6 +53,35 @@ public class Heap<E extends Comparable<E>> {
 
 
     /**
+     * @param i is the index of the parent
+     * @return the index of the smallest child,
+     *          or return -1 if parent has no children
+     */
+    @SuppressWarnings("unchecked")
+    private int smallestChild(int i) {
+        int left = i * 2;
+        // if parent has no left or right child
+        if (left > last) {
+            return -1;
+        }
+
+        int right = left + 1;
+        // if parent only has left child
+        if (right > last) {
+            return left;
+        }
+
+        // compare left and right children
+        int comparison = compare(H[left], H[right]);
+        if (comparison > 0) {
+            return right;
+        }
+        // default to left child if both children are equal
+        return left;
+    }
+
+
+    /**
      * @return number of elements in the heap
      */
     public int size() {
@@ -129,8 +158,29 @@ public class Heap<E extends Comparable<E>> {
 
         E min = min();
 
+        // move end element into the root
+        H[1] = H[last];
+        H[last] = null;
+        last--;
 
+        // down-heap bubbling
 
+        int cursor = 1;
+        int smallestChild = smallestChild(cursor);
+        // smallestChild returns -1 when no children exist
+        while (smallestChild != -1) {
+            // only swap if parent is greater than child
+            if (compare(H[cursor], H[smallestChild]) > 0) {
+                swap(cursor, smallestChild);
+                cursor = smallestChild;
+                smallestChild = smallestChild(cursor);
+            }
+            // return because heap order property has been maintained
+            else {
+                return min;
+            }
+        }
+        // return from method if element has been bubbled down to leaf
         return min;
     }
 
