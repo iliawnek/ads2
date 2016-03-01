@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Heap<E extends Comparable<E>> {
 
     private Object[] H;   // contains the objects in the heap
@@ -133,7 +135,6 @@ public class Heap<E extends Comparable<E>> {
         H[last] = e;
 
         // up-heap bubbling
-
         int cursor = last;
         int parent = cursor / 2;
         // repeat while element hasn't yet reached root
@@ -164,23 +165,17 @@ public class Heap<E extends Comparable<E>> {
         last--;
 
         // down-heap bubbling
-
         int cursor = 1;
         int smallestChild = smallestChild(cursor);
         // smallestChild returns -1 when no children exist
-        while (smallestChild != -1) {
+        while (smallestChild != -1 && compare(H[cursor], H[smallestChild]) > 0) {
             // only swap if parent is greater than child
-            if (compare(H[cursor], H[smallestChild]) > 0) {
-                swap(cursor, smallestChild);
-                cursor = smallestChild;
-                smallestChild = smallestChild(cursor);
-            }
-            // return because heap order property has been maintained
-            else {
-                return min;
-            }
+            // and if children exist
+            swap(cursor, smallestChild);
+            cursor = smallestChild;
+            smallestChild = smallestChild(cursor);
         }
-        // return from method if element has been bubbled down to leaf
+        // return from method when heap order property has been maintained
         return min;
     }
 
@@ -189,7 +184,7 @@ public class Heap<E extends Comparable<E>> {
      * @return elements in H in the order H[1] to H[last]
      */
     public String toString() {
-        return "implement me";
+        return Arrays.toString(H);
     }
 
 }
