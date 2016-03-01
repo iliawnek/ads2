@@ -85,33 +85,8 @@ public class Heap<E extends Comparable<E>> {
         if (isEmpty()) {
             throw new HeapException("Heap underflow: cannot get element from an empty heap.");
         }
-
-        return (E) H[minIndex()];
-    }
-
-
-    /**
-     * @return the index of the minimum element in the heap
-     */
-    @SuppressWarnings("unchecked")
-    private int minIndex() {
-
-        // if only one element in heap, return it (minimum by default)
-        if (size() == 1) {
-            return 1;
-        }
-
-        int minIndex = 1;
-        E minElement = (E) H[minIndex];
-        for (int i = 2; i <= size(); i++) {
-            // store new minElement and minIndex if less than current min
-            if (compare(minElement, H[i]) < 0) {
-                minIndex = i;
-                minElement = (E) H[minIndex];
-            }
-        }
-
-        return minIndex;
+        // minimum element is always in the root node
+        return (E) H[1];
     }
 
 
@@ -129,6 +104,7 @@ public class Heap<E extends Comparable<E>> {
         H[last] = e;
 
         // up-heap bubbling
+
         int cursor = last;
         int parent = cursor / 2;
         // repeat while element hasn't yet reached root
@@ -151,7 +127,7 @@ public class Heap<E extends Comparable<E>> {
             throw new HeapException("Heap underflow: cannot remove an element from an empty heap.");
         }
 
-        E min = (E) H[minIndex()];
+        E min = min();
 
 
 
