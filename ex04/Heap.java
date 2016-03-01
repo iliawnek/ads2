@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Collections;
 
 public class Heap<E extends Comparable<E>> {
 
@@ -184,7 +185,10 @@ public class Heap<E extends Comparable<E>> {
      * @return elements in H in the order H[1] to H[last]
      */
     public String toString() {
-        return Arrays.toString(H);
+        // return H as string with all nulls filtered out
+        return Arrays.toString(
+                Arrays.asList(H).stream().filter(e -> e != null).toArray()
+        );
     }
 
 }
